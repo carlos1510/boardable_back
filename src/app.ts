@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 export const app = express();
+export const router = express.Router();
 
 var corsOptions = {
     origin: 'http://localhost:5173',
