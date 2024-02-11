@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { configDotenv } from "dotenv"; 
-import { usersRouter } from "./routers/user-router";
+import usersRouter from "./routers/user-router";
 
 if(process.env["NODE_ENV"] === 'test'){
     configDotenv({ path: ".env.test" });
