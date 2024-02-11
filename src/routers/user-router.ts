@@ -9,7 +9,10 @@ const usersRouter = express.Router();
 usersRouter.get("/", async (_req, res) => {
   try{
     const users = await getUsers();
-    res.json(users);
+    res.json({
+      ok: true,
+      data: users,
+    });
   }catch(error){
     res.status(500).send("Error al obtener los usuarios");
   }

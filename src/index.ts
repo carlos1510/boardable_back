@@ -2,7 +2,7 @@ import express from "express";
 import { app } from "./app"; 
 import usersRouter from "./routers/user-router";
 
-const port = 5500;
+const port = process.env["PORT"] || 5500;
 
 app.use(express.json());
 
