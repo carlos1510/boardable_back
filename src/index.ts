@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import sessionHandler from "./middlewares/session";
 import authRouter from "./routers/auth-router";
 import userRouter from "./routers/user-router";
+import boardRouter from "./routers/board-router";
 import errorHandler from "./middlewares/error";
 import { configDotenv } from "dotenv";
 import { pool } from "./db";
@@ -40,6 +41,7 @@ app.use(sessionHandler());
 
 app.use(authRouter);
 app.use("/user", userRouter);
+app.use("/board", boardRouter);
 
 
 app.use(errorHandler);
