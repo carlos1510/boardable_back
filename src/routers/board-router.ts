@@ -1,5 +1,5 @@
 import express from "express";
-import { createBoard } from "../services/boards-service";
+import { createBoard, getBoards } from "../services/boards-service";
 import { validationHandler } from "../middlewares/validation";
 import { ZodError } from "zod";
 import { boardSchema } from "../models/board";
@@ -21,5 +21,18 @@ boardRouter.post("/", authenticateHandler, validationHandler(boardSchema), async
           res.status(500).send("Error al crear el Board");
     }
 });
+
+boardRouter.get("/", authenticateHandler, async (req, res) => {
+    try{
+        const sort = req.body;
+        const boards = await getBoards(sort);
+        res.json({
+        ok: true,
+        data: boards,
+        });
+    }catch(error){
+        res.status(500).send("Error al obtener el listado de Boards");
+    }
+})
 
 export default boardRouter;

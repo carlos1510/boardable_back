@@ -13,6 +13,14 @@ export const query = (text: string, params?: (string | number | boolean)[]) => {
   return pool.query(text, params);
 };
 
+export const sorting = (query: string, sort?: string): string => {
+  if (sort) {
+    const [sortCol, sortDir] = sort.split("_");
+    query += ` ORDER BY "${sortCol}" ${sortDir?.toUpperCase() || "ASC"}`;
+  }
+  return query;
+}
+
 export const adminClient = new Client({
   host: process.env["PGHOST"],
   port: Number(process.env["PGPORT"]),

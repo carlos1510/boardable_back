@@ -9,3 +9,8 @@ export async function createBoard(data: BoardParams, id_user: number): Promise<B
    
     return newBoard;
 }
+
+export async function getBoards(sort?: string): Promise<Board[]> {
+    const boards = await boardData.getBoards(sort);
+    return boards;
+}
