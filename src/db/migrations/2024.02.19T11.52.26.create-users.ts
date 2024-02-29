@@ -10,7 +10,7 @@ export const up: Migration = async (params) => {
 `);
 };
 
-const create_board = 'CREATE TABLE boards (	id SERIAL PRIMARY KEY,	name_title VARCHAR(100),	id_user INTEGER,	create_at timestamp,	update_at timestamp,	CONSTRAINT usersID  FOREIGN KEY(id_user)        REFERENCES users(id) )´;
+const create_board = 'CREATE TABLE boards (	id SERIAL PRIMARY KEY,	name_title VARCHAR(100), color VARCHAR(15),	id_user INTEGER,	create_at timestamp,	update_at timestamp,	CONSTRAINT usersID  FOREIGN KEY(id_user)        REFERENCES users(id) )´;
 
 export const down: Migration = async (params) => {
   return params.context.query(`DROP TABLE products;`);
