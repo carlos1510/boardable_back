@@ -22,7 +22,7 @@ boardRouter.post("/", authenticateHandler, validationHandler(boardSchema), async
     }
 });
 
-boardRouter.get("/", authenticateHandler, async (req, res) => {
+boardRouter.post("/getBoards", authenticateHandler, async (req, res) => {
     try{
         const sort = req.body;
         const boards = await getBoards(sort);

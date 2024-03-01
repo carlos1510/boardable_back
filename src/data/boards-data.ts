@@ -13,7 +13,7 @@ export async function createBoard(name_title: string, color: string, id_user: nu
 export async function getBoards(sort?: string): Promise<Board[]> {
     let query = "SELECT id, name_title, color, id_user FROM boards";
     // Sorting
-    query = db.sorting(query, sort);
+    //query = db.sorting(query, sort);
     
     console.log(query);
     const result = db.query(query);
