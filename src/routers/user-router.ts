@@ -1,6 +1,6 @@
 import express from "express";
-import { createUser, getUser } from "../services/users-service";
-import { userSchema } from "../models/user";
+import { createUser, getUser, updateUser } from "../services/users-service";
+import { userSchemaUpd, userSchema } from "../models/user";
 import { ZodError } from "zod";
 import { ApiError } from "../middlewares/error";
 import { authenticateHandler } from "../middlewares/authenticate";
@@ -33,7 +33,7 @@ usersRouter.get("/", authenticateHandler, async (req, res, next) => {
 });*/
 
 
-usersRouter.post("/", async (req, res) => {
+usersRouter.post("/", authenticateHandler, async (req, res) => {
   try{
     // validacion de input de usuario
     const userData = userSchema.parse(req.body);
@@ -44,6 +44,16 @@ usersRouter.post("/", async (req, res) => {
       res.status(400).send(error.errors);
     }
     res.status(500).send("Error al crear el usuario");
+  }
+});
+
+usersRouter.patch("/", authenticateHandler, async (req, res) => {
+  try{
+    const userData = userSchemaUpd.parse(req.body);
+    const updUser = await updateUser(userData);
+    res.status(201).json(updUser);
+  }catch(error){
+    res.status(500).send("Error al actualizar el usuario");
   }
 });
 

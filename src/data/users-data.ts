@@ -15,10 +15,17 @@ export async function getUserByUserName(username: string): Promise<User | undefi
   return (await pool.query("SELECT * FROM users WHERE username = $1", [username])).rows[0];
 }
 
-export async function createUser(username: string, password: string, email: string): Promise<User> {
+export async function createUser(username: string, password: string, email: string, name: string): Promise<User> {
     return (await pool.query(
-      "INSERT INTO users (username, password, email) values ($1, $2, $3) RETURNING *", 
-      [username, password, email])).rows[0];
+      "INSERT INTO users (username, password, email, name) values ($1, $2, $3, $4) RETURNING *", 
+      [username, password, email, name])).rows[0];
+}
+
+export async function updateUser(id: number, password: string, email: string, name:string): Promise<User> {
+  return (await pool.query(
+    "UPDATE users SET password=$1, email=$2, name=$3 WHERE id=$4 RETURNING *",
+    [password, email, name, id]
+  )).rows[0];
 }
 
   
