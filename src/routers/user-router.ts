@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getUser, updateUser } from "../services/users-service";
+import { createUser, deleteUser, getUser, updateUser } from "../services/users-service";
 import { userSchemaUpd, userSchema } from "../models/user";
 import { ZodError } from "zod";
 import { ApiError } from "../middlewares/error";
@@ -51,9 +51,22 @@ usersRouter.patch("/", authenticateHandler, async (req, res) => {
   try{
     const userData = userSchemaUpd.parse(req.body);
     const updUser = await updateUser(userData);
-    res.status(201).json(updUser);
+    res.status(200).json({
+      ok: true,
+      data: updUser,
+      });
   }catch(error){
     res.status(500).send("Error al actualizar el usuario");
+  }
+});
+
+usersRouter.delete("/", authenticateHandler, async (req, res, next) => {
+  try{
+    const id = req.userId!;
+    await deleteUser(id);
+    res.status(200).json({ ok: true });
+  }catch(error){
+    next(error);
   }
 });
 

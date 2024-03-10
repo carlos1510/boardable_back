@@ -28,4 +28,8 @@ export async function updateUser(id: number, password: string, email: string, na
   )).rows[0];
 }
 
+export async function deleteUser(id: number) {
+  return (await pool.query("DELETE FROM users WHERE id=$1", [id]));
+}
+
   

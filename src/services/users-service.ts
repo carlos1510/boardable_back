@@ -24,6 +24,7 @@ export async function createUser(data: UserParams): Promise<User> {
 }
 
 export async function updateUser(data: UserParamsUpd): Promise<User> {
+    console.log(data);
     const { username, password, email, name, id} = data;
     const costFactor = 10;
     const hashedPassword = await bcrypt.hash(password, costFactor);
@@ -44,4 +45,8 @@ export async function validateCredentials(credentials: UserParams): Promise<User
     
     return user;
 
+}
+
+export async function deleteUser(id: number) {
+    return await userDB.deleteUser(id);
 }
