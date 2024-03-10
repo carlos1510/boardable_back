@@ -60,9 +60,9 @@ usersRouter.patch("/", authenticateHandler, async (req, res) => {
   }
 });
 
-usersRouter.delete("/", authenticateHandler, async (req, res, next) => {
+usersRouter.delete("/:id", authenticateHandler, async (req, res, next) => {
   try{
-    const id = req.userId!;
+    const id = Number(req.params.id);
     await deleteUser(id);
     res.status(200).json({ ok: true });
   }catch(error){
